@@ -16,12 +16,21 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('shop');
 // });
+// フロントトップページ
 Route::get('/', 'ShopController@index');
 
 Auth::routes();
 
 // 商品検索
 Route::get('search', 'ShopController@search');
+
+// 管理画面トップページ
+Route::get('admin', 'AdminController@index');
+
+Route::post('admin/editComplete', 'AdminController@editComplete');
+
+// 管理画面編集
+Route::get('admin/edit/{id}', 'AdminController@edit');
 
 // 商品詳細
 Route::get('/{id}', 'ShopController@show');
