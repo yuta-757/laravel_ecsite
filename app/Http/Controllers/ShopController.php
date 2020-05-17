@@ -29,14 +29,15 @@ class ShopController extends Controller
         if(!empty($keyword))
         {
             $query->where('name','like','%'.$keyword.'%')->orWhere('detail','like','%'.$keyword.'%');
-            $searchResultFlag = 1;
-        }else{
-            $searchResultFlag = 0;
         }
-
         
         #ページネーション
         $stocks = $query->orderBy('created_at','desc')->paginate(3);
+
+        if($stocks[0]){
+            $searchResultFlag = 1;
+        }
+
         return view('searchResult',compact('keyword','stocks','searchResultFlag'));
     }
 
