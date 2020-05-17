@@ -20,4 +20,10 @@ Route::get('/', 'ShopController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// 商品検索
+Route::get('search', 'ShopController@search');
+
+// 商品詳細
+Route::get('/{id}', 'ShopController@show');
+
+// Route::get('/home', 'HomeController@index')->name('home');
