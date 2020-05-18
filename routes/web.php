@@ -27,7 +27,7 @@ Route::get('search', 'ShopController@search');
 // 管理画面トップページ
 Route::get('admin', 'AdminController@index');
 
-Route::post('admin/editComplete', 'AdminController@editComplete');
+Route::post('admin/edit/editComplete', 'AdminController@editComplete');
 
 // 管理画面編集
 Route::get('admin/edit/{id}', 'AdminController@edit');

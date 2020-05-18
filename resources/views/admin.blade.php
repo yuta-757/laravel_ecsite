@@ -9,14 +9,14 @@
                 @foreach($stocks as $stock)
                 <div class="itemBox">
                     <p>{{$stock->name}}</p>
-                    <p><img src="image/{{$stock->imgpath}}" alt="" ></p>
+                    <p><img src="/storage/image/{{$stock->imgpath}}" alt="" ></p>
                     <p>商品名：{{$stock->name}}<br></p>
                     <p>価格：{{$stock->fee}}円<br></p>
                     <p>商品説明：{{$stock->detail}}</p>
-                    <button type="button" onclick="location.href='./edit/{{$stock->id}}'">編集</button>
+                    <button type="button" onclick="location.href='admin/edit/{{$stock->id}}'">編集</button>
                 </div>
                 @endforeach
-            </div>  
+            </div> 
             <p>
                 {{$stocks->links()}} 
             </p>

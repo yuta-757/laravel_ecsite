@@ -18,7 +18,8 @@
                 @foreach($stocks as $stock)
                 <div class="itemBox">
                     <p>{{$stock->name}}</p>
-                    <p><img src="/image/{{$stock->imgpath}}" alt="" ></p>
+                    <!-- <p><img src="/storage//image/{{$stock->imgpath}}" alt="" ></p> -->
+                    <p><img src="/storage/image/{{$stock->imgpath}}" alt="" ></p>
                     <button type="button" onclick="location.href='./{{$stock->id}}'">商品詳細</button>
                 </div>
                 @endforeach

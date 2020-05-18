@@ -24,12 +24,12 @@ class AdminController extends Controller
         // DB更新
         if(!empty($request))
         {
-            // $contact = new Contact($request->all());
-            // $query->where('name','like','%'.$keyword.'%')->orWhere('detail','like','%'.$keyword.'%');
-            // echo var_dump($request['imgpath']);
-            // echo $_FILES['imgpath']['name'];
             // 選択した商品IDの取得
             $select_id = $request->input('id');
+
+            $detail = $request->input('detail');
+            $fee = $request->input('fee');
+
             // アップロードしたファイル名を取得
             $upload_name = $select_id."_".$_FILES['image']['name'];
 
@@ -40,30 +40,35 @@ class AdminController extends Controller
             // アップロードしたファイルのバリデーション設定
             $this->validate($request, [
                 'image' => [
-                    'required',
+                    // 'required',
                     'file',
                     'image',
                     'mimes:jpeg,png',
                 ]
             ]);
 
-            //アップロードに成功しているか確認
-            if ($request->file('image')->isValid([])) {
-                $filename = $request->file('image')->storeAs($up_dir, $upload_name, 'public');
-                echo $filename;
+            // DBへファイル名登録処理
+            $stock = \App\Models\Stock::findOrFail($select_id);
+            $stock->detail = $detail;
+            $stock->fee = $fee;
+            $stock->save();
 
-                // DBへファイル名登録処理
-                $stock = \App\Models\Stock::findOrFail($select_id);
-                // $filenameだとパスが含まれてしまう為、basename()で囲う
-                $stock->imgpath =   basename($filename);
-                // 更新(差分があればDBに登録)
-                $stock->save();
+            // リクエスト中にファイルが存在するか
+            if($request->hasFile('image')){
+                //アップロードに成功しているか確認
+                if ($request->file('image')->isValid([])) {
+                    // アップロードファイルを保存
+                    $filename = $request->file('image')->storeAs($up_dir, $upload_name, 'public');
+                    
+                    // $filenameだとパスが含まれてしまう為、basename()で囲う
+                    $stock->imgpath =   basename($filename);
 
-                return redirect()->to('admin')->with('flashmessage', 'イメージ画像の登録が完了しました。');
+                    // 更新(差分があればDBに登録)
+                    $stock->save();
+
+                }
             }
-            else{
-                return redirect()->to('admin')->with('flashmessage', 'イメージ画像の登録に失敗しました。');
-            }
+            return redirect()->to('admin/')->with('flashmessage', '変更が完了しました。');
         }
 
     }
