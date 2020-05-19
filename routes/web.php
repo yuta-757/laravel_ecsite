@@ -27,10 +27,17 @@ Route::get('search', 'ShopController@search');
 // 管理画面トップページ
 Route::get('admin', 'AdminController@index');
 
+// 編集処理->マイページにリダイレクト
 Route::post('admin/edit/editComplete', 'AdminController@editComplete');
 
 // 管理画面編集
 Route::get('admin/edit/{id}', 'AdminController@edit');
+
+// 登録処理->マイページにリダイレクト
+Route::post('admin/register/registerComplete', 'AdminController@registerComplete');
+
+// 商品 登録
+Route::get('admin/register', 'AdminController@register');
 
 // 商品詳細
 Route::get('/{id}', 'ShopController@show');
