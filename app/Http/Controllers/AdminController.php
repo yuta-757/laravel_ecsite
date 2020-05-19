@@ -73,7 +73,7 @@ class AdminController extends Controller
 
                 }
             }
-            return redirect()->to('admin/')->with('flashmessage', '変更が完了しました。');
+            return redirect()->to('admin/')->with('flashmessage', '登録が完了しました。');
         }
 
     }
@@ -91,7 +91,6 @@ class AdminController extends Controller
         {
             // バリデーション処理
             $validatedData = $request->validate([
-                'name' => 'required|max:20',
                 'detail' => 'required|max:100',
                 'fee' => 'required|digits_between:1,15',
                 
@@ -129,7 +128,7 @@ class AdminController extends Controller
                     $filename = $request->file('image')->storeAs($up_dir, $upload_name, 'public');
                     
                     // $filenameだとパスが含まれてしまう為、basename()で囲う
-                    $stock->imgpath =   basename($filename);
+                    $stock->imgpath = basename($filename);
 
                     // 更新(差分があればDBに登録)
                     $stock->save();
@@ -141,8 +140,10 @@ class AdminController extends Controller
 
     }
 
-
-    public function delete(){
-        return view('shop', compact('stocks')); 
+    // 商品削除
+    public function delete($id){
+        $stock = Stock::findOrFail($id);
+        $stock->delete();
+        return redirect('admin')->with('flashmessage', '削除が完了しました。');
     }
 }

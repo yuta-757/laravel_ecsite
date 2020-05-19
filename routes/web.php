@@ -39,6 +39,9 @@ Route::post('admin/register/registerComplete', 'AdminController@registerComplete
 // 商品 登録
 Route::get('admin/register', 'AdminController@register');
 
+// 管理　削除
+Route::get('admin/delete/{id}', 'AdminController@delete');
+
 // 商品詳細
 Route::get('/{id}', 'ShopController@show');
 

@@ -1,10 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 <div class="container-fluid">
    <div class="">
        <div class="mx-auto" style="max-width:1200px">
                    <h1>商品情報編集</h1>
+                   @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                　　@endif
                    <h2>商品名：{{$stock->name}}</h2>
                    <div class="col-sm-4" style="padding:20px 0; padding-left:0px;">
                         <form method="post" class="form-inline" action="editComplete" enctype="multipart/form-data">
